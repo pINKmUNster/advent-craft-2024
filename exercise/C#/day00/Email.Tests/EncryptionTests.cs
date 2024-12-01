@@ -13,6 +13,15 @@ public class EncryptionTests
     );
 
     [Fact]
+    public void Decrypt_Email()
+    {
+        var content = FileUtils.LoadFile("EncryptedEmail.txt");
+        _encryption.Decrypt(content).Should()
+            .NotBeNull()
+            .And.NotBeEmpty();
+    }
+
+    [Fact]
     public void Encrypt_A_String()
         => _encryption
             .Encrypt("Unlock Your Potential with the Advent Of Craft Calendar!")
