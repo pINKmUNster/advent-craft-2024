@@ -15,19 +15,14 @@ namespace Communication.Tests
 
         [Fact]
         public void ComposeMessage()
-            => _communicator.ComposeMessage(Dasher, NorthPole, 5, NumberOfDayBeforeChristmas)
+            => _communicator.ComposeMessage(new Reindeer(Dasher, NorthPole, 5, NumberOfDayBeforeChristmas))
                 .Should()
                 .Be("Dear Dasher, please return from North Pole in 17 day(s) to be ready and rest before Christmas.");
 
         [Fact]
         public void ShouldDetectOverdueReindeer()
         {
-            var overdue = _communicator.IsOverdue(
-                Dasher,
-                NorthPole,
-                NumberOfDayBeforeChristmas,
-                NumberOfDayBeforeChristmas,
-                _logger);
+            var overdue = _communicator.IsOverdue(new Reindeer(Dasher, NorthPole, NumberOfDayBeforeChristmas, NumberOfDayBeforeChristmas), _logger);
 
             overdue.Should().BeTrue();
             _logger.LoggedMessage().Should().Be("Overdue for Dasher located North Pole.");
@@ -35,12 +30,7 @@ namespace Communication.Tests
 
         [Fact]
         public void ShouldReturnFalseWhenNoOverdue()
-            => _communicator.IsOverdue(
-                    Dasher,
-                    NorthPole,
-                    NumberOfDayBeforeChristmas - NumberOfDaysToRest - 1,
-                    NumberOfDayBeforeChristmas,
-                    _logger)
+            => _communicator.IsOverdue(new Reindeer(Dasher, NorthPole, NumberOfDayBeforeChristmas - NumberOfDaysToRest - 1, NumberOfDayBeforeChristmas), _logger)
                 .Should()
                 .BeFalse();
     }
