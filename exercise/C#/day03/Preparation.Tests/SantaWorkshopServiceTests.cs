@@ -7,29 +7,20 @@ namespace Preparation.Tests
     {
         private const string RecommendedAge = "recommendedAge";
         private readonly SantaWorkshopService _service = new();
+        private readonly Bogus.Faker _faker = new();
 
         [Fact]
         public void PrepareGift_WithValidToy_ShouldInstantiateIt()
         {
-            const string giftName = "Bitzee";
-            const double weight = 3;
-            const string color = "Purple";
-            const string material = "Plastic";
-
-            _service.PrepareGift(giftName, weight, color, material)
-                .Should()
+            var gift = PrepareGift(GetValidWeight());
+            gift.Should()
                 .NotBeNull();
         }
 
         [Fact]
         public void RetrieveAttributeOnGift()
         {
-            const string giftName = "Furby";
-            const double weight = 1;
-            const string color = "Multi";
-            const string material = "Cotton";
-
-            var gift = _service.PrepareGift(giftName, weight, color, material);
+            var gift = PrepareGift(GetValidWeight());
             gift.AddAttribute(RecommendedAge, "3");
 
             gift.RecommendedAge()
@@ -37,15 +28,23 @@ namespace Preparation.Tests
                 .Be(3);
         }
 
+        private double GetValidWeight() => _faker.Random.Double(0, 5);
+
+        private Gift PrepareGift(double weight)
+        {
+            var giftName = _faker.Commerce.Product();
+            var color = _faker.Commerce.Color();
+            var material = _faker.Commerce.ProductMaterial();
+            var gift = _service.PrepareGift(giftName, weight, color, material);
+            return gift;
+        }
+
         [Fact]
         public void FailsForATooHeavyGift()
         {
-            const string giftName = "Dog-E";
-            const double weight = 6;
-            const string color = "White";
-            const string material = "Metal";
+            var invalidWeight = _faker.Random.Double(6, double.MaxValue);
 
-            var prepareGift = () => _service.PrepareGift(giftName, weight, color, material);
+            var prepareGift = () => PrepareGift(invalidWeight);
 
             prepareGift.Should()
                 .Throw<ArgumentException>()
