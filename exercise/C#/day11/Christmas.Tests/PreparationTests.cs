@@ -13,13 +13,17 @@ namespace Christmas.Tests
         [InlineData(49, "Elves will prepare the gifts.")]
         [InlineData(50, "Santa will prepare the gifts.")]
         public void PrepareGifts(int numberOfGifts, string expected)
-            => Preparation.PrepareGifts(numberOfGifts);
+            => Preparation.PrepareGifts(numberOfGifts).Should().Be(expected);
 
         [Theory]
         [InlineData(1, "Baby")]
+        [InlineData(2, "Baby")]
         [InlineData(3, "Toddler")]
+        [InlineData(5, "Toddler")]
         [InlineData(6, "Child")]
+        [InlineData(12, "Child")]
         [InlineData(13, "Teen")]
+        [InlineData(-1, "Teen")]
         public void CategorizeGift(int age, string expectedCategory)
             => Preparation.CategorizeGift(age)
                 .Should()

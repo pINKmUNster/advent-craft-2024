@@ -44,6 +44,14 @@
             <DependentUpon>DeliveryShould.cs</DependentUpon>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="7.txt">
+          <DependentUpon>DeliveryShould.cs</DependentUpon>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="8.txt">
+          <DependentUpon>DeliveryShould.cs</DependentUpon>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

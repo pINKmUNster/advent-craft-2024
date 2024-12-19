@@ -5,6 +5,9 @@ namespace ElfWorkshop.Tests
 {
     public class ElfWorkshopTests
     {
+        // on peut créer des theory pour les cas de ADD
+        
+        
         [Fact]
         public void AddTask_Should_Add_Task()
         {
@@ -29,6 +32,7 @@ namespace ElfWorkshop.Tests
             workshop.TaskList.Should().Contain("Paint bicycle");
         }
 
+        // meme chose ici pour les add vides
         [Fact]
         public void AddTask_Should_Handle_Empty_Tasks_Correctly()
         {
@@ -45,6 +49,7 @@ namespace ElfWorkshop.Tests
             workshop.TaskList.Should().BeEmpty();
         }
 
+        // Top mais on ne test q
         [Fact]
         public void CompleteTask_Should_Remove_Task()
         {

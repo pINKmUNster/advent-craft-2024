@@ -1,3 +1,4 @@
+using FluentAssertions;
 using Xunit;
 
 namespace Workshop.Tests
@@ -14,8 +15,10 @@ namespace Workshop.Tests
 
             var completedGift = workshop.CompleteGift(ToyName);
 
-            Assert.NotNull(completedGift);
-            Assert.Equal(Status.Produced, completedGift.Status);
+            completedGift.Should()
+                .NotBeNull();
+            completedGift.Status.Should()
+                .Be(Status.Produced);
         }
 
         [Fact]
@@ -23,8 +26,9 @@ namespace Workshop.Tests
         {
             var workshop = new Workshop();
             var completedGift = workshop.CompleteGift("NonExistingToy");
-
-            Assert.Null(completedGift);
+            
+            completedGift.Should()
+                .BeNull();
         }
     }
 }

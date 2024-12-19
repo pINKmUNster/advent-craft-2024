@@ -7,9 +7,9 @@ namespace ToyProduction.Services
         public void AssignToyToElf(string toyName)
         {
             var toy = repository.FindByName(toyName);
-            if (toy is {State: State.Unassigned})
+            if (toy is not null)
             {
-                toy.State = State.InProduction;
+                toy.AssignToElf();
                 repository.Save(toy);
             }
         }
